@@ -1,0 +1,54 @@
+import random
+import string
+
+adjectives = [
+    "Cool", "Happy", "Strong", "Fast", "Bright", "Mighty", "Charming", "Silly", "Brave",
+    "Gentle", "Fierce", "Wild", "Calm", "Swift", "Silent", "Bold", "Witty", "Lucky", "Jolly",
+    "Sunny", "Stormy", "Mystic", "Cosmic", "Royal", "Noble", "Ethereal", "Ancient", "Modern",
+    "Vibrant", "Gloomy", "Spooky", "Magical", "Giant", "Tiny", "Nimble", "Grumpy", "Sleek",
+    "Rustic", "Exotic", "Fuzzy", "Crazy", "Quiet", "Loud", "Smooth", "Rough", "Dark", "Light",
+    "Sharp", "Sweet", "Sour", "Bitter", "Spicy", "Juicy", "Elite", "Zenith", "Valiant", "Zesty"
+]
+
+nouns = [
+    "Tiger", "Dragon", "Lion", "Wolf", "Bear", "Fox", "Eagle", "Shark", "Panther",
+    "Raven", "Phoenix", "Serpent", "Viper", "Falcon", "Hound", "Lynx", "Stag", "Boar", "Rhino",
+    "Turtle", "Hare", "Squirrel", "Badger", "Heron", "Pelican", "Mantis", "Scorpion", "Ant",
+    "Bee", "Wasp", "Cricket", "Sparrow", "Robin", "Pigeon", "Lark", "Whale", "Dolphin", "Seal",
+    "Otter", "Eel", "Trout", "Salmon", "Pike", "Swordfish", "Jellyfish", "Coral", "Anemone",
+    "Kangaroo", "Koala", "Wombat", "Dingo", "Kiwi", "Llama", "Alpaca", "Sloth", "Ocelot", "Iguana"
+]
+
+def add_customization(username, add_numbers=False, add_special_chars=False):
+    if add_numbers:
+        username += random.choice(string.digits)  
+    if add_special_chars:
+        username += random.choice(string.punctuation)
+    return username
+
+def save_to_file(username):
+    with open("usernames.txt", "a") as file:
+        file.write(username + "\n")
+
+def get_user_input():
+    add_numbers = input("Do you want to add numbers? (y/n): ").strip().lower() == 'y'
+    add_special_chars = input("do you want to add special characters? (y/n): ").strip().lower() == 'y'
+    return add_numbers, add_special_chars
+
+def generate_username():
+    adjective = random.choice(adjectives)
+    noun = random.choice(nouns)
+    username = f"{adjective}{noun}"
+
+    add_numbers, add_special_chars = get_user_input()
+
+    username = add_customization(username, add_numbers, add_special_chars)
+
+    
+    save_to_file(username)
+
+    print(f"Generated Username :): {username}")
+
+if __name__ == "__main__":
+    generate_username()
+
